@@ -1,5 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import pageState from "../state/atom/pageState";
 
 const Container = styled.div`
   position: absolute;
@@ -31,7 +34,7 @@ const Item = styled.div`
   width: 250px;
   height: 200px;
   line-height: 200px;
-  font-size: 5em;
+  font-size: 2em;
   text-align: center;
   color: #fff;
   opacity: 0.95;
@@ -84,56 +87,68 @@ const PrevBtn = styled.button`
 
 const Navbar = () => {
   const [direction, setDirection] = React.useState("next");
-  const [currentDeg, setCurrentDeg] = React.useState(0);
-  // const [isAnimating, setIsAnimating] = React.useState(false);
-  const [items, setItems] = React.useState([
-    { name: "A", color: "#f00" },
-    { name: "B", color: "#0f0" },
-    { name: "C", color: "#00f" },
-    { name: "D", color: "#ff0" },
-    { name: "E", color: "#0ff" },
-    { name: "F", color: "#f0f" },
-  ]);
+  const [pageNumber, setPageNumber] = React.useState(0);
+  const [page, setPage] = useRecoilState(pageState);
+  // const navigate = useNavigate();
+
+  let navigationArray = [
+    { name: "Project01", path: "/", color: "#f00" },
+    { name: "Project02", path: "/Project02", color: "#0f0" },
+    { name: "Project03", path: "/Project03", color: "#00f" },
+    { name: "Project04", path: "/Project04", color: "#ff0" },
+    { name: "Project05", path: "/Project05", color: "#0ff" },
+    { name: "Project06", path: "/Project06", color: "#f0f" },
+  ];
+
+  // let pageNumberBinding = pageNumber;
+  // if (pageNumberBinding < 0) {
+  //   pageNumberBinding = pageNumber + navigationArray.length;
+  // } else if (pageNumberBinding > navigationArray.length - 1) {
+  //   pageNumberBinding = pageNumber - navigationArray.length;
+  // }
 
   const next = () => {
-    // if (isAnimating) return;
-    // setIsAnimating(true);
     setDirection("next");
-    setCurrentDeg(currentDeg - 60);
+    setPageNumber((prev) => prev + 1);
+    setPage(navigationArray[pageNumber].path);
   };
 
   const prev = () => {
     setDirection("prev");
-    setCurrentDeg(currentDeg + 60);
+    setPageNumber((prev) => prev - 1);
+    setPage(navigationArray[pageNumber].path);
   };
 
-  const rotationlimit = () => {
-    if (currentDeg === 360) {
-      setCurrentDeg(0);
-    } else if (currentDeg === -360) {
-      setCurrentDeg(0);
-    }
-  };
+  // const rotationlimit = () => {
+  //   if (currentDeg === 360) {
+  //     setCurrentDeg(0);
+  //   } else if (currentDeg === -360) {
+  //     setCurrentDeg(0);
+  //   }
+  // };
 
-  React.useEffect(() => {
-    // rotationlimit();
-  }, [currentDeg]);
+  // React.useEffect(() => {
+  // rotationlimit();
+  // }, [currentDeg]);
 
   console.log("direction", direction);
-  console.log("currentDeg", currentDeg);
+  console.log("pageNumber", pageNumber);
+  console.log("page", page);
+
+  let curouselRotateY = pageNumber * -60;
 
   return (
     <Container>
       <NavContainer>
         <Carousel
           style={{
-            transform: `translateZ(-100px) rotateY(${currentDeg}deg)`,
+            transform: `translateZ(-100px) rotateY(${curouselRotateY}deg)`,
             // transition: `${
             //   currentDeg > 361 || currentDeg < -361 ? "none" : "transform 1s"
             // }`,
           }}
         >
-          {items.map((item, index) => (
+          {navigationArray.map((item, index) => (
             <Item
               key={index}
               style={{
