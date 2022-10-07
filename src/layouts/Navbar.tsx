@@ -88,8 +88,8 @@ const PrevBtn = styled.button`
 const Navbar = () => {
   const [direction, setDirection] = React.useState("next");
   const [pageNumber, setPageNumber] = React.useState(0);
-  const [page, setPage] = useRecoilState(pageState);
-  // const navigate = useNavigate();
+  // const [page, setPage] = useRecoilState(pageState);
+  const navigate = useNavigate();
 
   let navigationArray = [
     { name: "Project01", path: "/", color: "#f00" },
@@ -110,14 +110,17 @@ const Navbar = () => {
   const next = () => {
     setDirection("next");
     setPageNumber((prev) => prev + 1);
-    setPage(navigationArray[pageNumber].path);
+    // setPage(navigationArray[pageNumber].path);
   };
 
   const prev = () => {
     setDirection("prev");
     setPageNumber((prev) => prev - 1);
-    setPage(navigationArray[pageNumber].path);
   };
+
+  React.useEffect(() => {
+    navigate(navigationArray[pageNumber].path);
+  }, [pageNumber]);
 
   // const rotationlimit = () => {
   //   if (currentDeg === 360) {
@@ -133,7 +136,7 @@ const Navbar = () => {
 
   console.log("direction", direction);
   console.log("pageNumber", pageNumber);
-  console.log("page", page);
+  // console.log("page", page);
 
   let curouselRotateY = pageNumber * -60;
 
