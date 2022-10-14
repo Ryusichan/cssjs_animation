@@ -1,0 +1,149 @@
+:root {
+  --dur: 1000ms;
+}
+.container {
+  background-color: #cccccc;
+}
+.wrapper {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  perspective: 200px;
+  transform-style: preserve-3d;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+.flexDiv {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  width: 200px;
+  height: 100px;
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+.flexDiv div {
+  position: relative;
+  height: 100%;
+  width: 10%;
+  background-image: linear-gradient(
+    to right,
+    #70badf 0%,
+    #77c6ed 90%,
+    #77c6ed 100%
+  );
+  perspective: 200px;
+  transform-style: preserve-3d;
+  transition: all var(--dur) ease-in-out;
+}
+.flexDiv div:nth-of-type(1) {
+  clip-path: circle(70% at 255% 50%);
+}
+.flexDiv div:nth-of-type(2) {
+  clip-path: circle(70% at 155% 50%);
+}
+.flexDiv div:nth-of-type(10) {
+  clip-path: circle(70% at -155% 50%);
+}
+.flexDiv div:nth-of-type(9) {
+  clip-path: circle(70% at -55% 50%);
+}
+.toggleMe {
+  transform: scaleX(18) scaleY(10);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  opacity: 0;
+  z-index: 9;
+}
+.toggleMe.checked ~ .flexDiv div {
+  transform: rotateX(180deg);
+  filter: grayscale(100%) brightness(135%);
+}
+.toggleMe.checked ~ .flexDiv div::after {
+  transform: rotateX(0deg) translateZ(calc(var(--dur) * 2));
+}
+.circle,
+.circleOther {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    #77c6ed 0%,
+    #77c6ed 30%,
+    #1b729e 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 50%;
+  animation: circleAnim var(--dur) linear;
+  animation-fill-mode: forwards;
+  transform: translateZ(30px) translateX(-45px);
+}
+.circleOther {
+  background: radial-gradient(
+    circle at 30% 30%,
+    #ffffff 0%,
+    #ffffff 30%,
+    #bbbbbb 100%
+  );
+  animation-name: circleAnimOther;
+  transform: translateZ(-30px) translateX(-45px);
+}
+.toggleMe.checked ~ .circle {
+  animation-name: circleReturn;
+  animation-play-state: running;
+}
+.toggleMe.checked ~ .circleOther {
+  animation-name: circleReturnOther;
+  animation-play-state: running;
+}
+
+@keyframes circleAnim {
+  0% {
+    transform: translateZ(30px) translateX(-45px);
+  }
+  50% {
+    transform: translateZ(0) translateX(0) translateY(35px);
+  }
+  100% {
+    transform: translateZ(-30px) translateX(45px);
+  }
+}
+@keyframes circleReturn {
+  0% {
+    transform: translateZ(-30px) translateX(45px);
+  }
+  50% {
+    transform: translateZ(0) translateX(0) translateY(35px);
+  }
+  100% {
+    transform: translateZ(30px) translateX(-45px);
+  }
+}
+
+@keyframes circleAnimOther {
+  0% {
+    transform: translateZ(-30px) translateX(-45px);
+  }
+  50% {
+    transform: translateZ(0) translateX(0) translateY(-35px);
+  }
+  100% {
+    transform: translateZ(30px) translateX(45px);
+  }
+}
+@keyframes circleReturnOther {
+  0% {
+    transform: translateZ(30px) translateX(45px);
+  }
+  50% {
+    transform: translateZ(0) translateX(0) translateY(-35px);
+  }
+  100% {
+    transform: translateZ(-30px) translateX(-45px);
+  }
+}

@@ -141,7 +141,7 @@ input:checked + label {
   background-color: #666;
   color: #fff;
 }
-#left:checked ~ .perspective {
+/* #left:checked ~ .perspective {
   transform: perspective(500px) rotateX(45deg) rotateZ(75deg);
 }
 #right:checked ~ .perspective {
@@ -152,4 +152,4 @@ input:checked + label {
 }
 #down:checked ~ .perspective {
   transform: perspective(500px) rotateX(15deg) rotateZ(45deg);
-}
+} */
