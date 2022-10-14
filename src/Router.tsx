@@ -17,7 +17,7 @@ export default function Router() {
       path: "/",
       element: <ArtworkLayout />,
       children: [
-        { path: "project01", element: <Project01 /> },
+        { path: "/", element: <Project01 /> },
         { path: "project02", element: <Project02 /> },
         { path: "project03", element: <Project03 /> },
         { path: "project04", element: <Project04 /> },
