@@ -1,4 +1,4 @@
-body {
+.container {
   font-size: 100%;
 }
 .perspective {
@@ -103,11 +103,11 @@ body {
   animation: wave 2s 0.9s ease-in-out infinite;
   z-index: 9;
 }
-/* Labels */
-input {
+/* .Labels */
+.input {
   display: none;
 }
-label {
+.label {
   background: #ddd;
   cursor: pointer;
   display: block;
@@ -120,24 +120,24 @@ label {
   transition: 0.25s;
   width: 4.5em;
 }
-label[for="left"] {
+.label[for="left"] {
   right: 10.5em;
 }
-label[for="reset"] {
+.label[for="reset"] {
   right: 5.5em;
 }
-label[for="up"] {
+.label[for="up"] {
   right: 5.5em;
   top: 0.5em;
 }
-label[for="down"] {
+.label[for="down"] {
   right: 5.5em;
   top: 7.5em;
 }
-label:hover {
+.label:hover {
   background-color: #bbb;
 }
-input:checked + label {
+.input:checked + .label {
   background-color: #666;
   color: #fff;
 }
